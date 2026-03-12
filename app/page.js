@@ -157,34 +157,43 @@ export default function Mobile525StructureWidget() {
         </div>
 
         <div style={{ background: "white", borderRadius: 24, padding: 16, boxShadow: "0 10px 24px rgba(15,23,42,0.08)", border: "1px solid rgba(15,23,42,0.06)" }}>
-          <div style={{ display: "grid", justifyItems: "center", gap: 12 }}>
+          <div style={{ display: "grid", justifyItems: "center", gap: 16 }}>
             <Circle node={nodes[TOP_ID]} selected={selectedId === TOP_ID} onClick={() => setSelectedId(TOP_ID)} />
 
-            <div style={{ width: 3, height: 24, background: "#0f7c95", borderRadius: 999 }} />
+            <div style={{ width: 3, height: 20, background: "#0f7c95", borderRadius: 999 }} />
 
-            <div style={{ width: "100%", height: 3, background: "#0f7c95", borderRadius: 999, marginBottom: 10 }} />
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10, width: "100%" }}>
+            {/* Level 2 - wraps nicely on small screens */}
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 10,
+              width: "100%",
+              flexWrap: "wrap"
+            }}>
               {LEVEL_2_IDS.map((id) => (
-                <div key={id} style={{ display: "grid", justifyItems: "center", gap: 8 }}>
+                <div key={id} style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: "1 1 18%", minWidth: 60 }}>
                   <Circle node={nodes[id]} selected={selectedId === id} onClick={() => setSelectedId(id)} />
-                  {id === "l2-1" || id === "l2-4" ? (
-                    <>
-                      <div style={{ width: 3, height: 22, background: "#0f7c95", borderRadius: 999 }} />
-                      <div style={{ width: "100%", height: 3, background: "#0f7c95", borderRadius: 999 }} />
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 6, width: "100%" }}>
+
+                  {/* Only show children under 1 and 4 */}
+                  {(id === "l2-1" || id === "l2-4") && (
+                    <div style={{ marginTop: 14, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 3, height: 16, background: "#0f7c95", borderRadius: 999 }} />
+
+                      {/* Level 3 stacked vertically for phone */}
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
                         {Array.from({ length: 5 }).map((_, i) => {
                           const childId = `l3-${id === "l2-1" ? 1 : 4}-${i + 1}`;
                           return (
-                            <div key={childId} style={{ display: "grid", justifyItems: "center" }}>
-                              <Circle node={nodes[childId]} selected={selectedId === childId} onClick={() => setSelectedId(childId)} />
-                            </div>
+                            <Circle
+                              key={childId}
+                              node={nodes[childId]}
+                              selected={selectedId === childId}
+                              onClick={() => setSelectedId(childId)}
+                            />
                           );
                         })}
                       </div>
-                    </>
-                  ) : (
-                    <div style={{ height: 83 }} />
+                    </div>
                   )}
                 </div>
               ))}
@@ -193,6 +202,7 @@ export default function Mobile525StructureWidget() {
         </div>
 
         <div style={{ background: "white", borderRadius: 24, padding: 16, boxShadow: "0 10px 24px rgba(15,23,42,0.08)", border: "1px solid rgba(15,23,42,0.06)", marginTop: 14 }}>
+
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 14 }}>
             <div>
               <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.12em", color: "#0f7c95" }}>SELECTED CIRCLE</div>
