@@ -1,6 +1,5 @@
 "use client";
 
-"use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
@@ -245,14 +244,14 @@ export default function Mobile525StructureWidget() {
             <Circle node={nodes[TOP_ID]} selected={selectedId === TOP_ID} onClick={() => setSelectedId(TOP_ID)} />
             <div style={{ width: 3, height: 20, background: "#0f7c95", borderRadius: 999 }} />
 
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 10, width: "100%", flexWrap: "wrap" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 6, width: "100%", alignItems: "start" }}>
               {LEVEL_2_IDS.map((id) => {
                 const isExpandable = !!LEVEL_3_GROUPS[id];
                 const isExpanded = expandedGroups[id];
                 const childIds = LEVEL_3_GROUPS[id] || [];
 
                 return (
-                  <div key={id} style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: "1 1 18%", minWidth: 60 }}>
+                  <div key={id} style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: 0 }}>
                     <Circle node={nodes[id]} selected={selectedId === id} onClick={() => setSelectedId(id)} />
 
                     {isExpandable ? (
@@ -290,7 +289,7 @@ export default function Mobile525StructureWidget() {
                         )}
                       </div>
                     ) : (
-                      <div style={{ height: 110 }} />
+                      <div style={{ height: 110, width: "100%" }} />
                     )}
                   </div>
                 );
